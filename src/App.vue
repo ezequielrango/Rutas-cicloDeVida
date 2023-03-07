@@ -1,13 +1,20 @@
-<script setup>
+<script >
+import Navbar from '../src/modules/shared/components/Navbar.vue'
+import {defineAsyncComponent} from 'vue'
 
-
+export default {
+  name: 'App', 
+  components: {
+    Navbar: defineAsyncComponent(() => import('../src/modules/shared/components/Navbar.vue'))
+  }
+}
 </script>
 
 <template>
-  <div>
-    <router-view/>
+    <Navbar/>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-  </div>
+    <router-view/>
+
 
 </template>
 
