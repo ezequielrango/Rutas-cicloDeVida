@@ -1,4 +1,5 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
+import isAuthenticatedGuard from './auth-guard';
 
 const routes = [
     { 
@@ -40,6 +41,7 @@ const routes = [
     {
         path: '/dbz',
         name: 'dbz',
+        beforeEnter: [isAuthenticatedGuard()],
         component: () => import('../modules/dbz/layouts/DragonBallLayout.vue'),
         children: [
             { 
