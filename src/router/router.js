@@ -68,16 +68,38 @@ const router = createRouter({
 
 // Guard Global - Síncrono
 
-router.beforeEach((to, from, next) => {
-    console.log({to, from , next });
+// router.beforeEach((to, from, next) => {
+//     console.log({to, from , next });
 
-    const random = Math.round(Math.random() * 100) ;
+    // const random = Math.round(Math.random() * 100) ;
 
-    if( random > 50){
-        console.log('autenticado, sape');
-        next()
-    }else{
-        console.log(random, 'No autenticado');
-    }
+    // if( random > 50){
+    //     console.log('autenticado, sape');
+    //     next()
+    // }else{
+    //     console.log(random, 'No autenticado');
+    // }
+// })
+
+const canAccess = () => {
+    return new Promise( resolve => {
+        const random = Math.round(Math.random() * 100) ;
+
+        if( random > 50){
+            console.log('autenticado, canAccess');
+            resolve(true)
+        }else{
+            console.log(random, 'No autenticado');
+            resolve(false)
+        }
+    })
+}
+
+router.beforeEach( async(to, from, next) => {
+    const authorized = await canAccess()
+
+    authorized ? next() : next({name: 'pokemon-home'})
 })
+
+
 export default router;
